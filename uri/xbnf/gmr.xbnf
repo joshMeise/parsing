@@ -1,6 +1,17 @@
-URI: scheme ':' double_slashes hier_part queries fragments ;
 
-double_slashes: /* empty */ | '/' '/' ;
+URI: scheme ':' doubleSlashes hierPart queries fragments ;
+
+URIReference : URI relativePart ;
+
+absolutePath : absolutePath | absolutePath '/' segment ;
+
+partialURI : relativePart query ;
+
+absoluteURI : scheme ':' relativePart queries ;
+
+relativePart : doubleSlashes hierPart ;
+
+doubleSlashes: /* empty */ | '/' '/' ;
 
 scheme: ALPHA schemes ;
 
@@ -8,7 +19,7 @@ schemes: /* empty */ | schemes schemess ;
 
 schemess: ALPHA | DIGIT | '+' | '-' | '.' ;
 
-hier_part: authority path ;
+hierPart: authority path ;
 
 authority: host ports ;
 
@@ -24,7 +35,7 @@ segment: /* empty */ | segment pchar ;
 
 queries: /* empty */ | '?' query ;
 
-query: /* empty */ | query queriess ;
+query: /* empty */ | queriess ;
 
 queriess: pchar | '/' | '?' ;
 

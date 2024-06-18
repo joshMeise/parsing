@@ -1,0 +1,144 @@
+requestLine : method SP requestTarget SP HTTPVersion ;
+
+
+
+requestTarget : originFrom | absoluteFrom | authorityFrom | asteriskFrom ;
+
+originFrom : absolutePath queries ;
+
+absoluteFrom : absoluteURI ;
+
+authorityFrom : authority ;
+
+asteriskFrom : '*' ;
+
+
+URI: scheme ':' doubleSlashes hierPart queries fragments ;
+
+URIReference : URI relativePart ;
+
+absolutePath : '/' segment | absolutePath '/' segment ;
+
+partialURI : relativePart queries ;
+
+absoluteURI : scheme ':' relativePart queries ;
+
+relativePart : doubleSlashes hierPart ;
+
+doubleSlashes: /* empty */ | '/' '/' ;
+
+scheme: ALPHA schemes ;
+
+schemes: /* empty */ | schemes schemess ;
+
+schemess: ALPHA | DIGIT | '+' | '-' | '.' ;
+
+hierPart: authority path ;
+
+authority: host ports ;
+
+host: unreserved | host unreserved ;
+
+ports: /* empty */ | ':' port ;
+
+port: DIGIT | port DIGIT ;
+
+path: /* empty */ | path '/' segment ;
+
+segment: /* empty */ | segment pchar ;
+
+queries: /* empty */ | '?' query ;
+
+query: /* empty */ | queriess ;
+
+queriess: pchar | '/' | '?' ;
+
+fragments: /* empty */ | '#' fragment ;
+
+fragment: /* empty */ | fragment fragmentss ;
+
+fragmentss: pchar | '/' | '?' ;
+
+pchar: unreserved | pct_encoded | sub_delims | ':' | '@' ;
+
+pct_encoded: '%' HEXDIG HEXDIG ;
+
+unreserved: ALPHA | DIGIT | '-' | '.' | '_' | '~' ;
+
+sub_delims: '!' | '$' | [ '&' - ',' ] | ';' | '=' ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+HTTPVersion : 'H' 'T' 'T' 'P' '/' DIGIT '.' DIGIT ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ALPHA : LOALPHA | UPALPHA ;
+
+LOALPHA : [ 'a' - 'z' ] ;
+
+UPALPHA : [ 'A' - 'Z' ] ;
+
+CR : '\x0D' ;
+
+LF : '\x0A' ;
+
+CRLF : CR LF ;
+
+CTL : [ '\x00' - '\x1F' ] | '\x7F' ;
+
+DIGIT : [ '0' - '9' ] ;
+
+DQUOTE : '"' ;
+
+HEXDIG : DIGIT | [ 'A' - 'Z' ] ;
+
+HTAB : '\x09' ;
+
+SP : '\x20' ;
+
+VCHAR : [ '\x21' - '\x7E' ] ;
+
+OCTET : [ '\x00' - '\xFF' ] ;
+
+WSP : SP | HTAB ;
+
+method : 'G' 'E' 'T' | 'H' 'E' 'A' 'D' | 'P' 'O' 'S' 'T' | 'P' 'U' 'T' | 'D' 'E' 'L' 'E' 'T' 'E' | 'C' 'O' 'N' 'N' 'E' 'C' 'T' | 'O' 'P' 'T' 'I' 'O' 'N' 'S' | 'T' 'R' 'A' 'C' 'E' ;

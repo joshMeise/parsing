@@ -10,9 +10,9 @@ echo -en "POST / HTTP/1.1\n" > ./pass.5
 echo -en "GET /background.png HTTP/1.0\n" > ./pass.6
 echo -en "HEAD /test.html?query=alibaba HTTP/1.2\n" > ./pass.7
 echo -en "OPTIONS /anypage.html HTTP/1.0\n" > ./pass.8
-echo -en "GET https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages HTTP/1.1\n" > ./pass.9
-echo -en "CONNECT developer.mozilla.org:80 HTTP/1.1\n" > ./pass.10
-echo -en "HTTP/1.1 404 Not Found\n" > ./pass.11
+echo -en "GET https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages HTTP/1.1\nError\n" > ./pass.9
+echo -en "CONNECT developer.mozilla.org:80 HTTP/1.1\nThis is a message" > ./pass.10
+echo -en "HTTP/1.1 404 Not Found\nfekj$%aenoEfjoc" > ./pass.11
 echo -en "HTTP/1.1 100 Continue\n" > ./pass.12
 echo -en "HTTP/1.1 201 Created\n" > ./pass.13
 echo -en "HTTP/1.1 302 Found\n" > ./pass.14

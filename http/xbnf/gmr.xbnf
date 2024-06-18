@@ -1,3 +1,5 @@
+startLine : statusLine | requestLine ;
+
 headerFiled : fieldName ':' OWS fieldValue OWS ;
 
 fieldName : token ;
@@ -21,6 +23,9 @@ fieldVchar : VCHAR | obsText ;
 obsFold : CRLF WSSS ;
 
 WSSS : WS | WSSS WS ;
+
+
+
 
 statusLine : HTTPVersion SP statusCode SP reasonPhrase ;
 

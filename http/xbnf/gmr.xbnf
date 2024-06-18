@@ -1,5 +1,26 @@
+headerFiled : fieldName ':' OWS fieldValue OWS ;
+
+fieldName : token ;
+
+token : tchar | token tchar ;
+
+tchar : '!' | '#' | '$' | '%' | '&' | '\x27' | '*' | '+' | '-' | '.' | '^' | '_' | '`' | '|' | '~' | DIGIT | ALPHA ;
+
 startLine : requestLine | statusLine ;
 
+fieldValue : /* empty */ | fieldValue fieldValueSS ;
+
+fieldValueSS : fieldContent | obsFold ;
+
+fieldContent : fieldVchar fieldContents ;
+
+fieldContents : /* empty */ | WSSS fieldVchar ;
+
+fieldVchar : VCHAR | obsText ;
+
+obsFold : CRLF WSSS ;
+
+WSSS : WS | WSSS WS ;
 
 statusLine : HTTPVersion SP statusCode SP reasonPhrase ;
 
@@ -65,42 +86,7 @@ unreserved: ALPHA | DIGIT | '-' | '.' | '_' | '~' ;
 sub_delims: '!' | '$' | [ '&' - ',' ] | ';' | '=' ;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 HTTPVersion : 'H' 'T' 'T' 'P' '/' DIGIT '.' DIGIT ;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -122,6 +108,20 @@ SP : '\x20' ;
 
 HTAB : '\x09' ;
 
+WS : SP | HTAB ;
+
+OWS : /* empty */ | OWS WS ;
+
+RWS : WS | RWS WS ;
+
+BWS : OWS ;
+
 VCHAR : [ '\x21' - '\x7E' ] ;
+
+CR : '\x0C' ;
+
+LF : '\x0A' ;
+
+CRLF : CR LF ;
 
 method : 'G' 'E' 'T' | 'H' 'E' 'A' 'D' | 'P' 'O' 'S' 'T' | 'P' 'U' 'T' | 'D' 'E' 'L' 'E' 'T' 'E' | 'C' 'O' 'N' 'N' 'E' 'C' 'T' | 'O' 'P' 'T' 'I' 'O' 'N' 'S' | 'T' 'R' 'A' 'C' 'E' ;

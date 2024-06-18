@@ -1,29 +1,16 @@
-startLine : statusLine | requestLine ;
+HTTPMessage : startLine optHeaderField ;
 
-headerFiled : fieldName ':' OWS fieldValue OWS ;
+startLine : statusLine LF | requestLine LF ;
+
+optHeaderField : /* empty */ | headerField LF ;
+
+headerField : fieldName ;
 
 fieldName : token ;
 
 token : tchar | token tchar ;
 
 tchar : '!' | '#' | '$' | '%' | '&' | '\x27' | '*' | '+' | '-' | '.' | '^' | '_' | '`' | '|' | '~' | DIGIT | ALPHA ;
-
-startLine : requestLine | statusLine ;
-
-fieldValue : /* empty */ | fieldValue fieldValueSS ;
-
-fieldValueSS : fieldContent | obsFold ;
-
-fieldContent : fieldVchar fieldContents ;
-
-fieldContents : /* empty */ | WSSS fieldVchar ;
-
-fieldVchar : VCHAR | obsText ;
-
-obsFold : CRLF WSSS ;
-
-WSSS : WS | WSSS WS ;
-
 
 
 

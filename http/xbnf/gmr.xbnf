@@ -1,10 +1,8 @@
 HTTPMessage : startLine optHeaderField ;
 
-startLine : statusLine LF | requestLine LF ;
-
 optHeaderField : /* empty */ | headerField LF ;
 
-headerField : fieldName ;
+headerField : fieldName ':' OWS fieldValue OWS ;
 
 fieldName : token ;
 
@@ -12,6 +10,23 @@ token : tchar | token tchar ;
 
 tchar : '!' | '#' | '$' | '%' | '&' | '\x27' | '*' | '+' | '-' | '.' | '^' | '_' | '`' | '|' | '~' | DIGIT | ALPHA ;
 
+fieldValue : /* empty */ | fieldValue fieldValueSS ;
+
+fieldValueSS : fieldContent | obsFold ;
+
+fieldContent : fieldVchar fieldContents ;
+
+fieldContents : /* empty */ | fieldContents WSSS fieldVchar ;
+
+fieldVchar : VCHAR | obsText ;
+
+obsFold : LF WSSS ;
+
+WSSS : WS | WSSS WS ;
+
+
+
+startLine : statusLine LF | requestLine LF ;
 
 
 statusLine : HTTPVersion SP statusCode SP reasonPhrase ;

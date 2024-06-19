@@ -1,4 +1,6 @@
-headerField : fieldName ':' OWS fieldValue OWS LF ;
+headerField : fieldName ':' OWS compValue OWS LF ;
+
+compValue : fieldValue '\x00' ;
 
 fieldValue : /* empty */ | fieldValue fieldValueSS ;
 

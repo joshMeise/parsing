@@ -1,0 +1,25 @@
+headerField : OWS compSmentence OWS ;
+
+compSentence : sentence '\x00' ; 
+
+sentence : word | sentence RWS word ;
+
+word : fieldVChar | word fieldVChar ;
+
+fieldVChar : VCHAR | obsText ;
+
+
+
+obsText : [ '\x80' - '\xFF' ] ;
+
+OWS : /* empty */ | OWS WS ;
+
+RWS : WS | RWS WS ;
+
+WS : HTAB | SP ;
+
+HTAB : '\x09' ;
+
+SP : ' ' ;
+
+VCHAR : [ '\x21' - '\x7E' ] ;

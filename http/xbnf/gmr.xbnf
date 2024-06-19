@@ -1,13 +1,10 @@
-HTTPMessage : startLine optHeaderField messageBody ;
-
-
-
-
+/* HTTP message definition */
+HTTPMessage : startLine optHeaderField LF messageBody ;
 
 messageBody : /* empty */ | messageBody OCTET ;
 
 
-optHeaderField : headerField | optHeaderField headerField ;
+optHeaderField : /* empty */ | optHeaderField headerField ;
 
 headerField : fieldName ':' OWS fieldValue LF ;
 

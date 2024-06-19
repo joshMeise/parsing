@@ -1,9 +1,14 @@
+/* Josh Meise */
+/* June 17, 2024 */
+/* Parser for HTTP messages *//* Reference - RFC 7230 */
+
 /* HTTP message definition */
 HTTPMessage : startLine optHeaderField LF messageBody ;
 
+/* Message is any repition of characters */
 messageBody : /* empty */ | messageBody OCTET ;
 
-
+/* Header field is optional and contains a field name followed by a colon, optional white space and followed by a field value */
 optHeaderField : /* empty */ | optHeaderField headerField ;
 
 headerField : fieldName ':' OWS fieldValue LF ;
@@ -24,15 +29,10 @@ token : tChar | token tChar ;
 
 tChar : '!' | '#' | '$' | '%' | '&' | '\x27' | '*' | '+' | '-' | '.' | '^' | '_' | '`' | '|' | '~' | DIGIT | ALPHA ;
 
-
-
-
-
-
-
+/* HTTP messages may either be requests or status messages */
 startLine : statusLine LF | requestLine LF ;
 
-
+/* A status message is a status message, followed by a status code, followed by a reason phrase */
 statusLine : HTTPVersion SP statusCode SP reasonPhrase ;
 
 statusCode : '1' DIGIT DIGIT | '2' DIGIT DIGIT | '3' DIGIT DIGIT | '4' DIGIT DIGIT | '5' DIGIT DIGIT ;
@@ -43,7 +43,7 @@ reasonPhraseSS : HTAB | SP | VCHAR | obsText ;
 
 obsText : [ '\x80' - '\xFF' ] ;
 
-
+/* A request message is a method, followed by a target (URI), followed by an HTTP version */
 requestLine : method SP requestTarget SP HTTPVersion ;
 
 requestTarget : originForm | absoluteForm | asteriskFrom ;
@@ -96,20 +96,10 @@ unreserved: ALPHA | DIGIT | '-' | '.' | '_' | '~' ;
 
 sub_delims: '!' | '$' | [ '&' - ',' ] | ';' | '=' ;
 
+/* HTTP version is the string HTTP followed by major-minor digit scheme */
+HTTPVersion : "HTTP" '/' DIGIT '.' DIGIT ;
 
-
-
-
-
-
-HTTPVersion : 'H' 'T' 'T' 'P' '/' DIGIT '.' DIGIT ;
-
-
-
-
-
-
-
+/* Tokens */
 ALPHA : LOALPHA | UPALPHA ;
 
 LOALPHA : [ 'a' - 'z' ] ;
@@ -132,12 +122,8 @@ RWS : WS | RWS WS ;
 
 VCHAR : [ '\x21' - '\x7E' ] ;
 
-CR : '\x0C' ;
-
 LF : '\x0A' ;
-
-CRLF : CR LF ;
 
 OCTET : [ '\x00' - '\xFF' ] ;
 
-method : 'G' 'E' 'T' | 'H' 'E' 'A' 'D' | 'P' 'O' 'S' 'T' | 'P' 'U' 'T' | 'D' 'E' 'L' 'E' 'T' 'E' | 'C' 'O' 'N' 'N' 'E' 'C' 'T' | 'O' 'P' 'T' 'I' 'O' 'N' 'S' | 'T' 'R' 'A' 'C' 'E' ;
+method : "GET" | "HEAD" | "POST" | "PUT" | "DELETE" | "CONNECT" | "OPTIONS" | "TRACE" ;

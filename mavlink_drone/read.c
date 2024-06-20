@@ -18,7 +18,7 @@ typedef struct message {
 } message_t;
 
 int toInt(unsigned char *len, int numBytes) {
-	return (int)len[0]*32 + (int)len[1];
+	return (int)len[0]*256 + (int)len[1];
 }
 
 void printMessage(message_t mess, int len) {
@@ -62,10 +62,10 @@ int main(int argc, char **argv) {
 	i = 0;
 	len = 0;
 	while ((bytesRead = fread(&buf, 1, sizeof(buf), ifile)) > 0) {
-		if (i < 32) mess.header[i] = buf;
+		/*		if (i < 32) mess.header[i] = buf;
 		else if (i == 32) {
 			len = toInt(&mess.header[28], 2) - 8;
-			printf("%d\n", len);
+			//			printf("%d\n", len);
 			mess.body = (unsigned char *)malloc(sizeof(unsigned char)*len);
 			mess.body[i - 32] = buf;
 		} else if (i < len + 32) mess.body[i - 32] = buf;
@@ -78,6 +78,8 @@ int main(int argc, char **argv) {
 			len = 0;
 			free(mess.body);
 		}
+		*/
+		printf("%02x ", buf);
 
 	}
 	

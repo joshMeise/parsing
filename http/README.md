@@ -1,13 +1,13 @@
 # Grammar for HTTP messages defined in xbnf
 
-## MEssage format:
+## Message format:
 __HTTP__ messages have the basic format:
 * A *start line* describing the message being sent or received
 * Optional set of *headers* which contain a field and a value
 * A blank line indicating that all meta information has been sent
 * An optional *message body*
 
-Messages may be of 2 tyoes:
+Messages may be of 2 types:
 * __Requests__: The *start line*, or *request line* contains the *HTTP method*, the *request target* and the *protocol version*
   * *HTTP methods* may be:
 	  * *GET*

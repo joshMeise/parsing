@@ -1,6 +1,7 @@
 /* Josh Meise */
 /* June 17, 2024 */
-/* Parser for HTTP messages *//* Reference - RFC 7230 */
+/* Parser for HTTP messages */
+/* Reference - RFC 7230 */
 
 /* HTTP message definition */
 HTTPMessage : startLine optHeaderField LF messageBody ;
@@ -13,15 +14,15 @@ optHeaderField : /* empty */ | optHeaderField headerField ;
 
 headerField : fieldName ':' OWS fieldValue LF ;
 
-fieldValue : fieldValueSS | fieldValue fieldValueSS ;
+fieldValue : /* empty */ | fieldValue fieldValueSS ;
 
-fieldValueSS : fieldContent ;
+fieldValueSS : fieldContent ; 
 
 fieldContent : fieldVChar optFieldContent ;
 
 optFieldContent : /* empty */ | RWS fieldVChar ;
 
-fieldVChar : VCHAR | obsText ;
+fieldVChar : obsText | VCHAR ;
 
 fieldName : token ;
 

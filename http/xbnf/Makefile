@@ -22,7 +22,7 @@ gmr:				$(OFILES)
 						gcc $(CFLAGS) $(OFILES) -o gmr
 
 run:
-						~/thayer_parsers/scripts/gmrtest.sh
+						gmrtest.sh
 
 clean:
 						rm -f *~ *.o gmr.tab.* gmr.output gmr.xml gmr.y gmr gmr_counts

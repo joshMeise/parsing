@@ -17,6 +17,8 @@ echo -en "HTTP/1.1 100 Continue\n\n" > ./pass.12
 echo -en "HTTP/1.1 201 Created\n\nHost: server side\n\nMessage\n" > ./pass.13
 echo -en "HTTP/1.1 303 Moved permanently\nServer: Apache/2.4.37 (Red Hat)\nontent-Type: text/html; charset=utf-8\nDate: Thu, 06 Dec 2018 17:33:08 GMT\n\nThis is a message\n" > ./pass.14
 echo -en "HTTP/1.1 503 Service Unavailable\n\n<!DOCTYPE html>… (contains a site-customized page helping the user to find the missing resource)" > ./pass.15
+echo -en "HTTP/1.1 503 Service Unavailable\n\n<!DOCTYPE html>… (contains a site-customized page helping the user to find the missing resource)\n There is a line fold here" > ./pass.16
+echo -en "CONNECT www.example.com:80 HTTP/1.1\nNo-field-value:\n\n" > ./pass.17
 
 # [FAILING TESTS]
 echo -en "GET /where?q=now HTTP/1.1\nMessage\n" > ./fail.1
@@ -40,6 +42,8 @@ echo -en "HTTP/1.1  Continue\n\n" > ./fail.18
 echo -en "GET /where?q=now \nMessage\n" > ./fail.19
 echo -en " /where?q=now HTTP/1.1\nMessage\n" > ./fail.20
 echo -en "GET HTTP/1.1\nMessage\n" > ./fail.21
+echo -en "HTTP/1.1 503 Service Unavailable\n\n<!DOCTYPE html>… (contains a site-customized page helping the user to find the missing resource)\nThere is a line fold here with no required whitespace" > ./fail.22
+echo -en "CONNECT www.example.com:80 HTTP/1.11\nHost space:loalhost 43\n\n" > ./fail.23
 
 # generate a file with the number of pass and fail tests
 #NUMPASS=(pass.*)

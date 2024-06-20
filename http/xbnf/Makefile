@@ -7,7 +7,7 @@ all:				gmr
 # bison: generate gmr.tab.[ch]
 gmr.tab.o:  gmr.xbnf
 						$(XBNFDIR)/xbnf gmr.xbnf -o gmr.y
-						bison -d -t -v --report=all -x -Wcex gmr.y
+						bison -d -t -v --report=all -x gmr.y
 #						bison -d -t -v -x gmr.y
 						gcc $(CFLAGS) -c gmr.tab.c
 
@@ -22,7 +22,7 @@ gmr:				$(OFILES)
 						gcc $(CFLAGS) $(OFILES) -o gmr
 
 run:
-						gmrtest.sh
+						~/thayer_parsers/scripts/gmrtest.sh
 
 clean:
 						rm -f *~ *.o gmr.tab.* gmr.output gmr.xml gmr.y gmr gmr_counts

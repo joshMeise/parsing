@@ -43,7 +43,8 @@ echo -en "GET /where?q=now \nMessage\n" > ./fail.19
 echo -en " /where?q=now HTTP/1.1\nMessage\n" > ./fail.20
 echo -en "GET HTTP/1.1\nMessage\n" > ./fail.21
 echo -en "HTTP/1.1 503 Service Unavailable\n\n<!DOCTYPE html>… (contains a site-customized page helping the user to find the missing resource)\nThere is a line fold here with no required whitespace" > ./fail.22
-echo -en "CONNECT www.example.com:80 HTTP/1.11\nHost space:loalhost 43\n\n" > ./fail.23
+echo -en "CONNECT www.example.com:80 HTTP/1.1\nHost space:loalhost 43\n\n" > ./fail.23
+echo -en "CONNECT www.example.com:80 HTTP/1.1\nHost: \n\n" > ./fail.24
 
 # generate a file with the number of pass and fail tests
 #NUMPASS=(pass.*)

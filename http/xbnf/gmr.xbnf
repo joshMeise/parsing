@@ -24,6 +24,8 @@ optFieldContent : /* empty */ | RWS fieldVChar ;
 
 fieldVChar : obsText | VCHAR ;
 
+obsFold : LF RWS ;
+
 fieldName : token ;
 
 token : tChar | token tChar ;
